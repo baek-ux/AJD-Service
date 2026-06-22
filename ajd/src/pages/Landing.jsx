@@ -5,6 +5,7 @@ import { C, won } from "../theme";
 import { FEED, STATS } from "../data/mock";
 import { useCountUp } from "../lib/useCountUp";
 import { Btn, Stat } from "../components/ui";
+import PromoBanner from "../components/PromoBanner";
 
 function TrackCard({ icon, title, desc, chips, accent }) {
   return (
@@ -106,14 +107,7 @@ export default function Landing() {
       </section>
 
       <section style={{ maxWidth: 1120, margin: "0 auto", padding: "64px 24px" }}>
-        <div style={{ background: C.amberTint, border: "1px solid #F2DFB0", borderRadius: 20, padding: "34px 36px", display: "flex", flexWrap: "wrap", gap: 20, alignItems: "center", justifyContent: "space-between" }}>
-          <div style={{ flex: "1 1 420px" }}>
-            <span style={{ fontSize: 13.5, fontWeight: 800, color: C.amberInk }}>아정당 단독 혜택</span>
-            <h3 style={{ fontSize: 24, fontWeight: 800, color: C.ink, letterSpacing: "-0.6px", margin: "8px 0" }}>자금은 선정산으로, 고정비는 아정당으로 줄이세요</h3>
-            <p style={{ fontSize: 15.5, color: C.body, margin: 0 }}>사업장 인터넷·TV 신규 가입 시 <b style={{ color: C.amberInk }}>최대 48만원 지원</b>. 선정산 회원이면 추가 혜택까지.</p>
-          </div>
-          <Btn variant="dark" onClick={() => nav("/benefit")} icon={<ChevronRight size={17} />}>혜택 보기</Btn>
-        </div>
+        <PromoBanner ctaLabel="혜택 자세히 보기" onCta={() => nav("/benefit")} />
       </section>
 
       <section style={{ background: C.brand }}>
