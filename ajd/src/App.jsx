@@ -1,7 +1,9 @@
 import { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Layout from "./components/Layout";
+import AdminLayout from "./components/AdminLayout";
 import RequireAuth from "./routes/RequireAuth";
+import RequireAdmin from "./routes/RequireAdmin";
 
 import Landing from "./pages/Landing";
 import LimitCheck from "./pages/LimitCheck";
@@ -14,7 +16,11 @@ import Dashboard from "./pages/Dashboard";
 import Connect from "./pages/Connect";
 import Apply from "./pages/Apply";
 import History from "./pages/History";
-import Admin from "./pages/Admin";
+
+import AdminLogin from "./pages/admin/AdminLogin";
+import Applications from "./pages/admin/Applications";
+import Members from "./pages/admin/Members";
+import Policy from "./pages/admin/Policy";
 
 // 페이지 이동 시 스크롤을 맨 위로
 function ScrollToTop() {
@@ -28,8 +34,8 @@ export default function App() {
     <>
       <ScrollToTop />
       <Routes>
+        {/* 일반 사이트 */}
         <Route element={<Layout />}>
-          {/* 공개 */}
           <Route path="/" element={<Landing />} />
           <Route path="/limit" element={<LimitCheck />} />
           <Route path="/signup" element={<Signup />} />
@@ -37,15 +43,19 @@ export default function App() {
           <Route path="/fee" element={<FeeCalc />} />
           <Route path="/benefit" element={<Benefit />} />
           <Route path="/support" element={<Support />} />
-          {/* 로그인 필요 */}
           <Route path="/dashboard" element={<RequireAuth><Dashboard /></RequireAuth>} />
           <Route path="/connect" element={<RequireAuth><Connect /></RequireAuth>} />
           <Route path="/apply" element={<RequireAuth><Apply /></RequireAuth>} />
           <Route path="/history" element={<RequireAuth><History /></RequireAuth>} />
-          {/* 운영자 */}
-          <Route path="/admin" element={<Admin />} />
-          {/* 그 외 */}
           <Route path="*" element={<Landing />} />
+        </Route>
+
+        {/* 운영자 콘솔 */}
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin" element={<RequireAdmin><AdminLayout /></RequireAdmin>}>
+          <Route index element={<Applications />} />
+          <Route path="members" element={<Members />} />
+          <Route path="policy" element={<Policy />} />
         </Route>
       </Routes>
     </>

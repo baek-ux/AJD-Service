@@ -3,12 +3,20 @@ import { useNavigate } from "react-router-dom";
 import { Loader2, CheckCircle2 } from "lucide-react";
 import { C, won } from "../theme";
 import { PLATFORMS } from "../data/mock";
+import { useAuth } from "../lib/auth";
 import { useAppState } from "../store/appState";
 import { Page, Btn, Row, EmptyBox } from "../components/ui";
 
+const stamp = () => {
+  const n = new Date();
+  const p = (x) => String(x).padStart(2, "0");
+  return `${n.getFullYear()}-${p(n.getMonth() + 1)}-${p(n.getDate())} ${p(n.getHours())}:${p(n.getMinutes())}`;
+};
+
 export default function Apply() {
   const nav = useNavigate();
-  const { connected, addPayout } = useAppState();
+  const { user } = useAuth();
+  const { connected, addApplication } = useAppState();
   const opts = PLATFORMS.filter((p) => connected.includes(p.id) && p.amt > 0);
   const [sel, setSel] = useState(opts[0]?.id || "");
   const [step, setStep] = useState(0);
@@ -19,9 +27,17 @@ export default function Apply() {
   const run = () => {
     setStep(1);
     setTimeout(() => {
+      addApplication({
+        id: Date.now(),
+        applicant: user?.name || "회원",
+        channel: chosen.name,
+        amt: chosen.amt,
+        fee,
+        at: stamp(),
+        status: "검토중", // 운영자 승인 시 지급완료로 전환
+      });
       setStep(2);
-      addPayout({ id: Date.now(), channel: chosen.name, amt: chosen.amt, fee, at: "방금 전", status: "지급완료" });
-    }, 1900);
+    }, 1700);
   };
 
   if (opts.length === 0)
@@ -32,7 +48,7 @@ export default function Apply() {
     );
 
   return (
-    <Page max={560} title="선정산 신청" sub="연동된 채널에서 받을 정산금을 지금 바로 지급받으세요.">
+    <Page max={560} title="선정산 신청" sub="연동된 채널에서 받을 정산금을 지금 바로 신청하세요.">
       <div style={{ background: C.white, border: `1px solid ${C.line}`, borderRadius: 18, padding: 28 }}>
         {step === 0 && (
           <>
@@ -51,23 +67,23 @@ export default function Apply() {
               <div style={{ borderTop: `1px solid ${C.line}`, margin: "10px 0" }} />
               <Row k="실 지급액" v={won(chosen.amt - fee)} big />
             </div>
-            <Btn full size="lg" onClick={run}>{won(chosen.amt - fee)} 지급받기</Btn>
+            <Btn full size="lg" onClick={run}>{won(chosen.amt - fee)} 신청하기</Btn>
           </>
         )}
         {step === 1 && (
           <div style={{ textAlign: "center", padding: "40px 0" }}>
             <Loader2 size={34} color={C.brand} style={{ animation: "ajdspin 1s linear infinite" }} />
-            <p style={{ fontSize: 16, fontWeight: 600, color: C.ink, marginTop: 16 }}>지급을 처리하고 있습니다…</p>
-            <p style={{ fontSize: 13.5, color: C.faint, marginTop: 6 }}>정산금 채권 확인 및 입금 처리중</p>
+            <p style={{ fontSize: 16, fontWeight: 600, color: C.ink, marginTop: 16 }}>신청을 접수하고 있습니다…</p>
+            <p style={{ fontSize: 13.5, color: C.faint, marginTop: 6 }}>정산금 채권 확인중</p>
           </div>
         )}
         {step === 2 && (
           <div style={{ textAlign: "center", padding: "8px 0" }}>
-            <div style={{ width: 52, height: 52, borderRadius: 999, background: C.greenTint, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 14px" }}><CheckCircle2 size={28} color={C.green} /></div>
-            <p style={{ fontSize: 15, color: C.faint, fontWeight: 600 }}>지급 완료</p>
+            <div style={{ width: 52, height: 52, borderRadius: 999, background: C.tint, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 14px" }}><CheckCircle2 size={28} color={C.brand} /></div>
+            <p style={{ fontSize: 15, color: C.faint, fontWeight: 600 }}>신청 접수 완료</p>
             <div style={{ fontSize: 36, fontWeight: 800, color: C.brand, letterSpacing: "-1px", margin: "6px 0" }}>{won(chosen.amt - fee)}</div>
-            <p style={{ fontSize: 14, color: C.body, marginBottom: 22 }}>등록된 계좌로 입금되었습니다.</p>
-            <Btn full size="lg" onClick={() => nav("/history")}>지급 내역 보기</Btn>
+            <p style={{ fontSize: 14, color: C.body, marginBottom: 22 }}>검토 후 최대 1시간 이내에 등록된 계좌로 지급됩니다.</p>
+            <Btn full size="lg" onClick={() => nav("/history")}>내역에서 확인하기</Btn>
             <button onClick={() => setStep(0)} style={{ background: "none", border: "none", color: C.faint, fontSize: 13.5, marginTop: 14, cursor: "pointer", textDecoration: "underline" }}>다른 채널 신청하기</button>
           </div>
         )}

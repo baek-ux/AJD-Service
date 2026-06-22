@@ -10,7 +10,7 @@ import PayoutTable from "../components/PayoutTable";
 export default function Dashboard() {
   const nav = useNavigate();
   const { user } = useAuth();
-  const { connected, payouts } = useAppState();
+  const { connected, applications } = useAppState();
   const myChannels = PLATFORMS.filter((p) => connected.includes(p.id));
   const available = myChannels.reduce((s, p) => s + p.amt, 0);
 
@@ -53,8 +53,8 @@ export default function Dashboard() {
         </div>
       )}
 
-      <h3 style={{ fontSize: 18, fontWeight: 700, color: C.ink, margin: "0 0 14px" }}>최근 지급 내역</h3>
-      <PayoutTable payouts={payouts} empty="아직 지급 내역이 없어요. 채널을 연동하고 첫 선정산을 신청해 보세요." />
+      <h3 style={{ fontSize: 18, fontWeight: 700, color: C.ink, margin: "0 0 14px" }}>최근 신청·지급</h3>
+      <PayoutTable payouts={applications} empty="아직 지급 내역이 없어요. 채널을 연동하고 첫 선정산을 신청해 보세요." />
     </Page>
   );
 }

@@ -4,22 +4,21 @@ import { createContext, useContext, useState } from "react";
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null);   // 일반 사용자
+  const [admin, setAdmin] = useState(false); // 운영자 세션
 
   // 데모: 입력값을 그대로 사용자로 받아들입니다.
-  // 실제 전환 시:
-  //   const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-  //   if (!error) setUser({ name: data.user.email, type: "seller" });
+  // 실제: const { data, error } = await supabase.auth.signInWithPassword({ email, password });
   const login = (u) => setUser(u || { name: "김셀러", type: "seller" });
-
-  // 실제: const { data } = await supabase.auth.signUp({ email, password });
   const signup = (u) => setUser(u || { name: "김셀러", type: "seller" });
-
-  // 실제: await supabase.auth.signOut();
   const logout = () => setUser(null);
 
+  // 운영자 로그인 (데모: 자격 검증 없음 / 실제: 별도 role 검증)
+  const adminLogin = () => setAdmin(true);
+  const adminLogout = () => setAdmin(false);
+
   return (
-    <AuthContext.Provider value={{ user, login, signup, logout }}>
+    <AuthContext.Provider value={{ user, login, signup, logout, admin, adminLogin, adminLogout }}>
       {children}
     </AuthContext.Provider>
   );

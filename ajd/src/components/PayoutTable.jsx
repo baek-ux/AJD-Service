@@ -1,6 +1,22 @@
 import { C, won } from "../theme";
 import { EmptyBox } from "./ui";
 
+export const STATUS_STYLE = {
+  지급완료: { color: C.green, bg: C.greenTint },
+  검토중: { color: C.amberInk, bg: C.amberTint },
+  반려: { color: C.red, bg: C.redTint },
+};
+
+export function StatusBadge({ status }) {
+  const s = STATUS_STYLE[status] || { color: C.faint, bg: C.surface };
+  return (
+    <span style={{ fontSize: 12.5, fontWeight: 700, color: s.color, background: s.bg, padding: "4px 9px", borderRadius: 7 }}>
+      {status}
+    </span>
+  );
+}
+
+// 사용자 측 신청·지급 내역 테이블
 export default function PayoutTable({ payouts, empty }) {
   if (!payouts.length) return <EmptyBox text={empty} />;
   return (
@@ -18,9 +34,7 @@ export default function PayoutTable({ payouts, empty }) {
           <span style={{ flex: 1.4, textAlign: "right", fontWeight: 700, color: C.ink }}>{won(p.amt)}</span>
           <span style={{ flex: 1.2, textAlign: "right", color: C.faint }}>{won(p.fee)}</span>
           <span style={{ flex: 1.6, textAlign: "right", color: C.faint, fontSize: 13 }}>{p.at}</span>
-          <span style={{ flex: 1, textAlign: "right" }}>
-            <span style={{ fontSize: 12.5, fontWeight: 700, color: C.green, background: C.greenTint, padding: "4px 9px", borderRadius: 7 }}>{p.status}</span>
-          </span>
+          <span style={{ flex: 1, textAlign: "right" }}><StatusBadge status={p.status} /></span>
         </div>
       ))}
     </div>
