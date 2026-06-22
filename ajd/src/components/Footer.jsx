@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { C } from "../theme";
 import Logo from "./Logo";
 
@@ -13,6 +14,7 @@ const INFO = [
 ];
 
 export default function Footer() {
+  const nav = useNavigate();
   return (
     <footer style={{ background: C.ink, color: "rgba(255,255,255,.72)" }}>
       <div style={{ maxWidth: 1120, margin: "0 auto", padding: "44px 24px 32px", display: "flex", flexWrap: "wrap", gap: 32, justifyContent: "space-between" }}>
@@ -37,8 +39,9 @@ export default function Footer() {
         </div>
       </div>
       <div style={{ borderTop: "1px solid rgba(255,255,255,.12)" }}>
-        <div style={{ maxWidth: 1120, margin: "0 auto", padding: "16px 24px", fontSize: 12, color: "rgba(255,255,255,.45)" }}>
-          © 2026 아정네트웍스. 본 사이트는 시연용 데모이며 표시된 금액·고객·지급 내역은 예시입니다. 실제 금융거래가 이루어지지 않습니다.
+        <div style={{ maxWidth: 1120, margin: "0 auto", padding: "16px 24px", display: "flex", flexWrap: "wrap", gap: 12, justifyContent: "space-between", alignItems: "center", fontSize: 12, color: "rgba(255,255,255,.45)" }}>
+          <span>© 2026 아정네트웍스. 본 사이트는 시연용 데모이며 표시된 금액·고객·지급 내역은 예시입니다. 실제 금융거래가 이루어지지 않습니다.</span>
+          <span onClick={() => nav("/admin")} style={{ cursor: "pointer", color: "rgba(255,255,255,.55)", fontWeight: 600, whiteSpace: "nowrap" }}>관리자</span>
         </div>
       </div>
     </footer>

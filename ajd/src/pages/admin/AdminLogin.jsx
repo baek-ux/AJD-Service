@@ -22,8 +22,8 @@ export default function AdminLogin() {
           <div style={{ width: 48, height: 48, borderRadius: 13, background: C.brand, display: "inline-flex", alignItems: "center", justifyContent: "center", marginBottom: 14 }}>
             <ShieldCheck size={24} color={C.white} />
           </div>
-          <h1 style={{ fontSize: 22, fontWeight: 800, margin: 0, letterSpacing: "-0.5px" }}>운영자 콘솔 로그인</h1>
-          <p style={{ fontSize: 13.5, color: "rgba(255,255,255,.6)", margin: "8px 0 0" }}>아정당 선정산 관리자 전용</p>
+          <h1 style={{ fontSize: 22, fontWeight: 800, margin: 0, letterSpacing: "-0.5px" }}>관리자 로그인</h1>
+          <p style={{ fontSize: 13.5, color: "rgba(255,255,255,.6)", margin: "8px 0 0" }}>아정당 선정산 관리자 전용 페이지</p>
         </div>
         <div style={{ background: C.white, borderRadius: 16, padding: 26 }}>
           <Field label="관리자 아이디" placeholder="admin" value={id} onChange={(e) => setId(e.target.value)} />

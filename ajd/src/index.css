@@ -18,3 +18,5 @@ input::placeholder { color: #A6B0C2; }
 @keyframes ajdpulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: .4; transform: scale(.8); } }
 @keyframes ajdfade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes ajdspin { to { transform: rotate(360deg); } }
+
+.ajd-row:hover { background: #F6F8FC; }

@@ -15,37 +15,49 @@ export default function AdminLayout() {
   const { adminLogout } = useAuth();
 
   return (
-    <div style={{ fontFamily: FONT, minHeight: "100vh", background: C.surface, color: C.body }}>
-      <header style={{ background: C.ink, color: C.white }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 24px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, flexWrap: "wrap" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 22, flexWrap: "wrap" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 9, padding: "16px 0", fontWeight: 800, fontSize: 16, letterSpacing: "-0.4px" }}>
-              <span style={{ background: C.brand, borderRadius: 7, padding: "3px 8px", fontSize: 12.5, letterSpacing: "0.5px" }}>ㅇㅈㄷ</span>
-              운영자 콘솔
-            </div>
-            <nav style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
-              {TABS.map(([label, to, Icon]) => {
-                const active = pathname === to;
-                return (
-                  <button key={to} onClick={() => nav(to)} style={{
-                    display: "inline-flex", alignItems: "center", gap: 7, background: active ? "rgba(255,255,255,.12)" : "transparent",
-                    color: active ? C.white : "rgba(255,255,255,.65)", border: "none", borderRadius: 9, padding: "9px 13px",
-                    fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: FONT,
-                  }}>
-                    <Icon size={15} /> {label}
-                  </button>
-                );
-              })}
-            </nav>
-          </div>
-          <button onClick={() => { adminLogout(); nav("/"); }} style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "none", border: "none", color: "rgba(255,255,255,.7)", fontSize: 13.5, fontWeight: 600, cursor: "pointer", fontFamily: FONT }}>
-            <LogOut size={15} /> 로그아웃
-          </button>
+    <div style={{ fontFamily: FONT, minHeight: "100vh", background: C.surface, color: C.body, display: "flex" }}>
+      {/* 본문 (좌측) */}
+      <main style={{ flex: "1 1 0", minWidth: 0, padding: "40px 36px 80px" }}>
+        <div style={{ maxWidth: 900, margin: "0 auto" }}>
+          <Outlet />
         </div>
-      </header>
-      <main style={{ maxWidth: 1100, margin: "0 auto", padding: "36px 24px 80px" }}>
-        <Outlet />
       </main>
+
+      {/* 네비게이션 (우측) */}
+      <aside style={{ flex: "0 0 248px", background: C.white, borderLeft: `1px solid ${C.line}`, position: "sticky", top: 0, height: "100vh", display: "flex", flexDirection: "column", padding: "24px 18px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 9, padding: "4px 8px 18px", borderBottom: `1px solid ${C.line}`, marginBottom: 16 }}>
+          <span style={{ background: C.brand, color: C.white, borderRadius: 8, padding: "4px 9px", fontWeight: 800, fontSize: 13, letterSpacing: "0.5px" }}>ㅇㅈㄷ</span>
+          <div>
+            <div style={{ fontSize: 14.5, fontWeight: 800, color: C.ink, letterSpacing: "-0.3px", lineHeight: 1.2 }}>아정당 선정산</div>
+            <div style={{ fontSize: 12, color: C.faint, fontWeight: 600 }}>관리자</div>
+          </div>
+        </div>
+
+        <nav style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+          {TABS.map(([label, to, Icon]) => {
+            const active = pathname === to;
+            return (
+              <button key={to} onClick={() => nav(to)} style={{
+                position: "relative", display: "flex", alignItems: "center", gap: 10, textAlign: "left",
+                background: active ? C.tint : "transparent", color: active ? C.brand : C.body,
+                border: "none", borderRadius: 10, padding: "11px 13px", fontSize: 14, fontWeight: active ? 700 : 600,
+                cursor: "pointer", fontFamily: FONT,
+              }}>
+                <Icon size={16} /> {label}
+              </button>
+            );
+          })}
+        </nav>
+
+        <div style={{ flex: 1 }} />
+
+        <button onClick={() => { adminLogout(); nav("/"); }} style={{
+          display: "flex", alignItems: "center", gap: 9, background: "none", border: "none",
+          color: C.faint, fontSize: 13.5, fontWeight: 600, cursor: "pointer", fontFamily: FONT, padding: "11px 13px",
+        }}>
+          <LogOut size={16} /> 로그아웃
+        </button>
+      </aside>
     </div>
   );
 }
