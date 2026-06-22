@@ -10,7 +10,7 @@ export default function Support() {
     <Page title="고객센터" sub="자주 묻는 질문을 모았어요. 더 필요하면 언제든 문의하세요.">
       <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 28 }}>
         <div style={{ flex: "1 1 240px", background: C.tint, borderRadius: 14, padding: "20px 22px" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 8, fontWeight: 700, color: C.ink, fontSize: 16 }}><Phone size={17} color={C.brand} /> 고객센터 1600-0000</div>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, fontWeight: 700, color: C.ink, fontSize: 16 }}><Phone size={17} color={C.brand} /> 고객센터 1833-3504</div>
           <p style={{ fontSize: 13.5, color: C.faint, margin: "6px 0 0" }}>평일 09:00 – 18:00</p>
         </div>
         <div style={{ flex: "1 1 240px", background: C.surface, border: `1px solid ${C.line}`, borderRadius: 14, padding: "20px 22px" }}>

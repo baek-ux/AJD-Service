@@ -33,6 +33,7 @@ export default function Landing() {
   const nav = useNavigate();
   const total = useCountUp(STATS.total);
   const sellers = useCountUp(STATS.sellers, 1700);
+  const today = useCountUp(1284920000, 1800);
   const [fi, setFi] = useState(0);
   useEffect(() => {
     const id = setInterval(() => setFi((i) => (i + 1) % FEED.length), 2200);
@@ -60,10 +61,10 @@ export default function Landing() {
             </div>
             <div style={{ flex: "1 1 360px", minWidth: 300 }}>
               <div style={{ background: C.white, border: `1px solid ${C.line}`, borderRadius: 20, padding: 24, boxShadow: "0 24px 60px rgba(11,27,63,.12)" }}>
-                <div style={{ fontSize: 14, color: C.faint, fontWeight: 600 }}>선정산 가능 금액</div>
-                <div style={{ fontSize: 38, fontWeight: 800, color: C.ink, letterSpacing: "-1px", margin: "6px 0 2px" }}>₩3,420,000</div>
-                <div style={{ fontSize: 13.5, color: C.green, fontWeight: 600, marginBottom: 18 }}>· 연동된 3개 채널 기준 · 즉시 지급 가능</div>
-                <Btn full onClick={() => nav("/limit")}>지금 지급받기</Btn>
+                <div style={{ fontSize: 14, color: C.faint, fontWeight: 600 }}>오늘 선정산으로 지급된 금액</div>
+                <div style={{ fontSize: 34, fontWeight: 800, color: C.ink, letterSpacing: "-1px", margin: "6px 0 2px" }}>{won(today)}</div>
+                <div style={{ fontSize: 13.5, color: C.green, fontWeight: 600, marginBottom: 18 }}>· 지금도 실시간으로 지급되고 있어요</div>
+                <Btn full onClick={() => nav("/limit")}>내 한도 1분 만에 조회하기</Btn>
                 <div style={{ borderTop: `1px solid ${C.line}`, marginTop: 18, paddingTop: 14 }}>
                   <div style={{ fontSize: 12.5, color: C.faint, fontWeight: 600, marginBottom: 8 }}>실시간 지급 현황</div>
                   <div key={fi} style={{ display: "flex", alignItems: "center", gap: 10, animation: "ajdfade .4s ease" }}>
