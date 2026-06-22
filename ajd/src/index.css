@@ -1,0 +1,20 @@
+* { box-sizing: border-box; }
+html, body, #root { margin: 0; padding: 0; }
+body { -webkit-font-smoothing: antialiased; }
+a { text-decoration: none; }
+
+.ajd-cta { transition: filter .15s ease, transform .12s ease; }
+.ajd-cta:hover { filter: brightness(.93); }
+.ajd-cta:active { transform: translateY(1px); }
+
+.ajd-nav a { transition: color .15s ease; cursor: pointer; }
+.ajd-nav a:hover { color: #145CE6; }
+
+.ajd-card { transition: transform .18s ease, box-shadow .18s ease; }
+.ajd-card:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(20,92,230,.10); }
+
+input::placeholder { color: #A6B0C2; }
+
+@keyframes ajdpulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: .4; transform: scale(.8); } }
+@keyframes ajdfade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes ajdspin { to { transform: rotate(360deg); } }
