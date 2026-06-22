@@ -9,7 +9,7 @@ import { Page, Btn, Row, EmptyBox } from "../components/ui";
 export default function Apply() {
   const nav = useNavigate();
   const { connected, addPayout } = useAppState();
-  const opts = PLATFORMS.filter((p) => connected.includes(p.id));
+  const opts = PLATFORMS.filter((p) => connected.includes(p.id) && p.amt > 0);
   const [sel, setSel] = useState(opts[0]?.id || "");
   const [step, setStep] = useState(0);
 
@@ -27,7 +27,7 @@ export default function Apply() {
   if (opts.length === 0)
     return (
       <Page max={560} title="선정산 신청">
-        <EmptyBox text="먼저 정산 채널을 연동해 주세요." action={<Btn onClick={() => nav("/connect")}>채널 연동하러 가기</Btn>} />
+        <EmptyBox text="정산 예정 금액이 있는 연동 채널이 없어요. 채널을 연동해 주세요." action={<Btn onClick={() => nav("/connect")}>채널 연동하러 가기</Btn>} />
       </Page>
     );
 
