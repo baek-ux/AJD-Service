@@ -16,15 +16,8 @@ export default function AdminLayout() {
 
   return (
     <div style={{ fontFamily: FONT, minHeight: "100vh", background: C.surface, color: C.body, display: "flex" }}>
-      {/* 본문 (좌측) */}
-      <main style={{ flex: "1 1 0", minWidth: 0, padding: "40px 36px 80px" }}>
-        <div style={{ maxWidth: 900, margin: "0 auto" }}>
-          <Outlet />
-        </div>
-      </main>
-
-      {/* 네비게이션 (우측) */}
-      <aside style={{ flex: "0 0 248px", background: C.white, borderLeft: `1px solid ${C.line}`, position: "sticky", top: 0, height: "100vh", display: "flex", flexDirection: "column", padding: "24px 18px" }}>
+      {/* 네비게이션 (좌측) */}
+      <aside style={{ flex: "0 0 248px", background: C.white, borderRight: `1px solid ${C.line}`, position: "sticky", top: 0, height: "100vh", display: "flex", flexDirection: "column", padding: "24px 18px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 9, padding: "4px 8px 18px", borderBottom: `1px solid ${C.line}`, marginBottom: 16 }}>
           <span style={{ background: C.brand, color: C.white, borderRadius: 8, padding: "4px 9px", fontWeight: 800, fontSize: 13, letterSpacing: "0.5px" }}>ㅇㅈㄷ</span>
           <div>
@@ -58,6 +51,13 @@ export default function AdminLayout() {
           <LogOut size={16} /> 로그아웃
         </button>
       </aside>
+
+      {/* 본문 (우측) */}
+      <main style={{ flex: "1 1 0", minWidth: 0, padding: "40px 36px 80px" }}>
+        <div style={{ maxWidth: 900, margin: "0 auto" }}>
+          <Outlet />
+        </div>
+      </main>
     </div>
   );
 }
